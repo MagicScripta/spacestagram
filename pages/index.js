@@ -1,23 +1,28 @@
-import styles from "../styles/Home.module.css";
 import { getRoverImages } from "../apis/mars-rover";
-import { useEffect } from "react";
+import {useEffect, useState} from "react";
+import ImageCard from "../components/ImageCard";
 
 export default function Home() {
   // ** //
+  const [posts, setPosts] = useState([])
+
   useEffect(() => {
     async function fetchRoverData() {
-      await getRoverImages("1", {}).then((response) => {
-        console.log(response);
+      await getRoverImages("1000", {camera: "RHAZ"}).then((response) => {
+        const pictures = []
+        response.map((photo) => (pictures.push(<ImageCard image={photo} likeState={false}/>)))
+        setPosts(pictures)
       });
     }
 
-    fetchRoverData().then(() => {});
-  });
+    fetchRoverData().then(() => {
+    });
+  }, []);
 
   useEffect(() => {
     document.onreadystatechange = () => {
       if (document.readyState === "complete") {
-        console.log(document.readyState)
+        console.log(document.readyState);
         const cover = document.getElementById("cover");
         cover ? (cover.style.display = "block") : {};
       }
@@ -25,10 +30,10 @@ export default function Home() {
   });
 
   return (
-      <div id="cover" className={styles.main} style={{display: "none"}} >
-        <h1>
-          Welcome to <a href="https://stephenmustapha.com">Spacestagram</a>
-        </h1>
+    <div id="cover" style={{ display: "none" }}>
+      <div id="main">
+        {posts}
       </div>
+    </div>
   );
 }

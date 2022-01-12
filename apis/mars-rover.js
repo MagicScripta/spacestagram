@@ -14,7 +14,7 @@ export async function getRoverImages(sol, params) {
       return response.json();
     })
     .then((data) => {
-      return data;
+      return data.photos;
     })
     .catch((err) => {
       console.warn("Couldn't fetch the photos", err);
@@ -22,4 +22,6 @@ export async function getRoverImages(sol, params) {
 }
 
 // Process the data from the API
-async function getRoverUrls(data) {}
+async function getRoverUrls(data) {
+  return data.photos
+}
