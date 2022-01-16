@@ -14,7 +14,6 @@ const ImageCard = ({ image, likeState }) => {
       }
     }
 
-  console.log(image);
   return (
     <div id="card">
       <img src={image.img_src} alt={"Couldn't find the image"} />
