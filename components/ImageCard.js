@@ -19,6 +19,7 @@ const ImageCard = ({ image, likeState, name }) => {
 
   return (
     <div id="card" className={name}>
+      <h3>{name + "-" + image.id + " from " + image.earth_date}</h3>
       <img src={image.img_src} alt={"Couldn't find the image"} />
       <p>Date: {image.earth_date}</p>
       <button onClick={onLike}>
